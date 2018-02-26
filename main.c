@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "main.h"
+#include "header/main.h"
 
 int main(int argc, char *argv[]) {
   return 0;
