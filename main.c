@@ -1,32 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "header/main.h"
 
-int main(int argc, char *argv[]) {
-  srand(time(NULL));
-  int nb_hasard = rand()%1000;
-  int saisie;
-  int nb_coups = 0;
+int main(int argc, char* argv[]) {
+  int a = 4;
+  int b = 5;
 
-  printf("Veuillez saisir votre nombre :\n");
-  scanf("%d", &saisie);
-
-  while(saisie != nb_hasard) {
-    if (saisie > nb_hasard) {
-      printf("Trop grand\n");
-    }
-    else {
-      printf("Trop petit\n");
-    }
-    nb_coups++;
-    printf("Veuillez saisir votre nouvelle valeur :\n");
-    scanf("%d", &saisie);
+  switch(argc){
+    case 1:
+      break;
+    case 2:
+      printf("Deux paramètres requis.\n");
+      return 2;
+    case 3:
+      a = atoi(argv[1]);
+      b = atoi(argv[2]);
+      break;
+    default:
+      printf("Deux paramètres sont nécessaires. \n");
+      return -1;
   }
 
-  printf("Vous avez trouve !\n");
-  printf("C'etait : %d\n", nb_hasard);
-  printf("Votre nombre de coups : %d\n", nb_coups);
+  printf("%d, %d\n", a, b);
+  echange(&a, &b);
+  printf("%d, %d\n", a, b);
   return 0;
+}
+
+void echange(int* a,int* b) {
+  int temp;
+  temp = *a;
+  *a = *b;
+  *b = temp;
 }
