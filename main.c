@@ -1,38 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "header/main.h"
 
 int main(int argc, char* argv[]) {
-  int nombre_entiers, i;
+  char* chaine = "L'Omnimessie vaincra !";
 
-  printf("Veuillez rentrer le nombre d'entiers :\n");
-  scanf("%d", &nombre_entiers);
-  int* ptableau_entiers = (int*) malloc(nombre_entiers*sizeof(int));
+  printf("%s\n", chaine);
+  printf("%s\n", duplique_chaine(chaine));
 
-  if (ptableau_entiers == NULL) {
-    printf("Pas de mémoire disponible.\n");
-    return EXIT_FAILURE;
-  }
-
-  for (i = 0; i < nombre_entiers; i++) {
-    printf("Valeur saisie :\n");
-    scanf("%d", (ptableau_entiers+i));
-  }
-
-  afficheTableau(ptableau_entiers, nombre_entiers);
   return 0;
 }
 
-void afficheTableau(int* ptableau, int nombre_entiers) {
-  int i, compteur = 0;
+int taille_chaine(char* chaine) {
+  int compteur = 0;
+  while (*(chaine + compteur) != '\0') {
+    compteur += 1;
+  }
+  return compteur;
+}
 
-  for (i = 0; i < nombre_entiers; i++) {
-    printf("Valeur :\n");
-    printf("%d\n", ptableau[i]);
-    compteur += ptableau[i];
+char* duplique_chaine(char* chaine_a_copier) {
+  char* chaine_initiale = chaine_a_copier;
+  int taille = taille_chaine(chaine_a_copier);
+  char* chaine_receptacle = (char*) malloc(taille * sizeof(char));
+  int i = 0;
+
+  if (chaine_receptacle == NULL) {
+    exit(1);
   }
 
-  printf("Somme :\n");
-  printf("%d\n", compteur);
+  do {   
+    *(chaine_receptacle + i) = *(chaine_initiale + i);
+    i++;
+  } while (*(chaine_initiale + (i-1)) != '\0');
+
+  return chaine_receptacle;
 }
