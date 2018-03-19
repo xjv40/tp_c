@@ -1,4 +1,4 @@
 #ifndef __MAIN_H
 #define __MAIN_H
-int afficheTableau(int *tableau);
+void afficheTableau(int* ptableau, int nombre_entiers);
 #endif  // __MAIN_H
