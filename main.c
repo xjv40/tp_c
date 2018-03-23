@@ -5,36 +5,36 @@
 #include "header/main.h"
 
 int main(int argc, char* argv[]) {
-  char* chaine = "L'Omnimessie vaincra !";
+  char* chaine = "   test   ";
 
-  printf("%s\n", chaine);
-  printf("%s\n", duplique_chaine(chaine));
+  char* resultat = trim(chaine);
 
   return 0;
 }
 
-int taille_chaine(char* chaine) {
-  int compteur = 0;
-  while (*(chaine + compteur) != '\0') {
-    compteur += 1;
-  }
-  return compteur;
-}
-
-char* duplique_chaine(char* chaine_a_copier) {
-  char* chaine_initiale = chaine_a_copier;
-  int taille = taille_chaine(chaine_a_copier);
-  char* chaine_receptacle = (char*) malloc(taille * sizeof(char));
+char* trim(char* str) {
+  char* p = str;
   int i = 0;
 
-  if (chaine_receptacle == NULL) {
-    exit(1);
+  int resultat = compte_chaine(p);
+
+  while ((*p == ' ') || (*p == '\t') || (*p == '\n')) {
+    i++;
+    p++;
   }
 
-  do {   
-    *(chaine_receptacle + i) = *(chaine_initiale + i);
-    i++;
-  } while (*(chaine_initiale + i) != '\0');
-
-  return chaine_receptacle;
+  printf("Nombre de caracteres en debut de chaine trouves : %d.\n", i);
+  return str;
 }
+
+int compte_chaine(char* str) {
+  int i = 0;
+  char* p = str;
+
+  while (*p != '\0') {
+    i++;
+  }
+
+  return i;
+}
+

@@ -1,5 +1,5 @@
 #ifndef __MAIN_H
 #define __MAIN_H
-int taille_chaine(char* chaine);
-char* duplique_chaine(char* chaine_a_copier);
+char* trim(char* str); 
+int compte_chaine(char* str);
 #endif  // __MAIN_H
