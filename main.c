@@ -5,25 +5,24 @@
 #include "header/main.h"
 
 int main(int argc, char* argv[]) {
-  char* chaine = "qsd";
-  char* resultat = repeatString(chaine, strlen(chaine));
-  printf("%s\n", resultat);
+  char chaine[] = "azer";
   return 0;
 }
 
-char* repeatString(char* str, int count) {
-  int nb_caracteres = (int) strlen(str);
-  int i = 0, j = 0, k = 0;
+char* reverseStr(char* str) {
+  int taille_chaine = strlen(str);
+  char* nouv_chaine = (char*) malloc(sizeof(char) * (taille_chaine + 1));
+  if (nouv_chaine == NULL)
+    return 1;
 
-  char* chaine = (char*) malloc(sizeof(char) * ((nb_caracteres * count) + 1));
-  for (i = 0; i < count; i++) {
-    j = 0;
-    while (*(str + j)) {
-      *(chaine + k) = *(str + j);
-      j++;
-      k++;
-    }
+  int i = 0, j = 0;
+
+  for (i = taille_chaine - 1; i >= 0; i--) {
+    *(nouv_chaine + j) = *(str + i);
+    j++;
   }
-  *(chaine + ((nb_caracteres * count) + 1)) = '\0';
-  return chaine;
+
+  *(nouv_chaine + j) = '\0';
+
+  return nouv_chaine;
 }
