@@ -5,25 +5,18 @@
 #include "header/main.h"
 
 int main(int argc, char* argv[]) {
-  int nombre_chaine = 3;
-  char* tableau_pointeurs[nombre_chaine];
-  int nb_caracteres = 80;
-  int i = 0;
+  short index = 0;
+  char texte[] = "Programmation\nC\n";
+  char* ptr = (char*) malloc(sizeof(char) * strlen(texte));
+  if (ptr == NULL)
+    return 1;
 
-  for (i = 0; i < nombre_chaine; i++) {
-    char* pchaine = (char*) malloc(sizeof(char)*nb_caracteres);
-    if (pchaine == NULL) {
-      printf("Bug !\n");
-      return 1;
-    }
-    scanf("%s", pchaine);
-    tableau_pointeurs[i] = pchaine;
+  while (texte[index]) {
+    *(ptr + index) = texte[index];
+    index++;
   }
 
-  for (i = 0; i < nombre_chaine; i++) {
-    printf("%s\n", tableau_pointeurs[i]);
-    free(tableau_pointeurs[i]);
-  }
+  printf("%s", ptr);
 
   return 0;
 }
