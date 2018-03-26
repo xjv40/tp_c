@@ -5,18 +5,25 @@
 #include "header/main.h"
 
 int main(int argc, char* argv[]) {
-  short index = 0;
-  char texte[] = "Programmation\nC\n";
-  char* ptr = (char*) malloc(sizeof(char) * strlen(texte));
-  if (ptr == NULL)
-    return 1;
-
-  while (texte[index]) {
-    *(ptr + index) = texte[index];
-    index++;
-  }
-
-  printf("%s", ptr);
-
+  char* chaine = "qsd";
+  char* resultat = repeatString(chaine, strlen(chaine));
+  printf("%s\n", resultat);
   return 0;
+}
+
+char* repeatString(char* str, int count) {
+  int nb_caracteres = (int) strlen(str);
+  int i = 0, j = 0, k = 0;
+
+  char* chaine = (char*) malloc(sizeof(char) * ((nb_caracteres * count) + 1));
+  for (i = 0; i < count; i++) {
+    j = 0;
+    while (*(str + j)) {
+      *(chaine + k) = *(str + j);
+      j++;
+      k++;
+    }
+  }
+  *(chaine + ((nb_caracteres * count) + 1)) = '\0';
+  return chaine;
 }
