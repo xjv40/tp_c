@@ -5,23 +5,29 @@
 #include "header/main.h"
 
 int main(int argc, char* argv[]) {
-  char* chaine = "L'Omnimessie vaincra !";
-  printf("%s\n", myExtractSubstring(chaine, 2, 8));
+  double x = 5, y = 6;
+  Point pointA = creePoint(x, y);
+  Point pointB = creePoint(y, x);
+  Segment segment = creeSegment(pointA, pointB);
+  afficheSegment(segment);
   return 0;
 }
 
-char* myExtractSubstring(char* str, int debut, int fin) {
-  if (fin <= debut)
-    return 1;
+Point creePoint(double x, double y) {
+  Point point = {x, y};
+  return point;
+  // return (Point) {x, y};
+}
 
-  char* chaine = (char*) malloc(sizeof(char) * (fin - debut));
-  int i = 0;
-  int j = 0;
+void affichePoint(Point point) {
+  printf("%f, %f\n", point.x, point.y);
+}
 
-  for (i = debut; i < fin; i++) {
-    *(chaine + j) = *(str + i);
-    j++;
-  }
+Segment creeSegment(Point A, Point B) {
+  return (Segment) {A, B};
+}
 
-  return chaine;
+void afficheSegment(Segment segment) {
+  printf("A : %f, %f\n", segment.pointA.x, segment.pointA.y);
+  affichePoint(segment.pointB);
 }
