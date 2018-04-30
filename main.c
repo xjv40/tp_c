@@ -4,61 +4,73 @@
 
 #include "header/main.h"
 
-Eleve tab[7] = {
-  {"Alain", "0011100110"},
-  {"Beatrice", "1001101100"},
-  {"Claude", "1010010100"},
-  {"Daniel", "0100011101"},
-  {"Emma", "0111101001"},
-  {"Fanny", "1011101100"},
-  {"Gregoire", "1101101101"}
-};
-
 int main(int argc, char* argv[]) {
-  int num_question;
-  afficherTous();
-  while ((num_question = lecture()))
-    printf("Reponses correcte s = %d\n",
-           nbr_rep(num_question));
+  Cellule* pcellule = nouveau();
+  if (pcellule == NULL) {
+    printf("BUG !!\n");
+    return 1;
+  }
+
+  Cellule* pbase = pcellule;
+  Cellule* ptete = pcellule;
+
+  Cellule* pNouvCellule = nouveau();
+  ptete = ajoutTete(pNouvCellule, ptete);
+  pNouvCellule = nouveau();
+  ptete = ajoutTete(pNouvCellule, ptete);
+
+  affiche(pbase);
+  printf("%p\n", recherche(pbase, "russe"));
   return 0;
 }
 
-void afficherEleve(Eleve eleve) {
-  int compte_bonne_reponse = 0, i = 0;
+Cellule* nouveau() {
+  char tempon[10];
+  printf("Nom de la personne :\n");
+  scanf("%s", tempon);
 
-  for (i = 0; i < 10; i++) {
-    compte_bonne_reponse += eleve.reponses[i] - '0';
-  }
-  printf("Nom de l'élève : %s, total : %d\n", eleve.nom, compte_bonne_reponse);
+  char* chaine_nom = (char*) malloc(sizeof(strlen(tempon))+1);
+  if (chaine_nom == NULL)
+    return NULL;
+
+  strncpy(chaine_nom, tempon, 9);
+  chaine_nom[strlen(chaine_nom)+1] = '\0';
+
+  printf("Numero du bureau :\n");
+  scanf("%s", tempon);
+  int bureau = atoi(tempon);
+
+  Cellule* pcellule = (Cellule*) malloc(sizeof(Cellule));
+  if (pcellule == NULL)
+    return NULL;
+
+  pcellule->nom = chaine_nom;
+  pcellule->bureau = bureau;
+  pcellule->next = NULL;
+  return pcellule;
 }
 
-void afficherTous(void) {
-  int i;
-  for (i = 0; i < 7; i++) {
-    afficherEleve(tab[i]);
-  }
+Cellule* ajoutTete(Cellule* nouvelleCellule, Cellule* tete) {
+  tete->next = nouvelleCellule;
+  return nouvelleCellule;
 }
 
-int lecture(void) {
-  while(1) {
-    int nombre_caracteres = 3;
-    char* chaine_saisie = (char*) malloc(sizeof(char) * nombre_caracteres);
-    chaine_saisie[nombre_caracteres - 1] = '\0';
-    printf("Numéro de la réponse : ");
-    scanf("%s", chaine_saisie);
-    int chaine_convertie = atoi(chaine_saisie);
-    if (chaine_convertie >= 0 && chaine_convertie <= 10)
-      return chaine_convertie;
+void affiche(Cellule* pbase) {
+  Cellule* ptemp = pbase;
+  while (ptemp != NULL) {
+    printf("Nom : %s, bureau : %d\n", ptemp->nom, ptemp->bureau);
+    ptemp = ptemp->next;
   }
+  return;
 }
 
-int nbr_rep(int num_question) {
-  int compte_bonne_reponse = 0;
-  int i;
-
-  for (i = 0; i < 7; i++) {
-    compte_bonne_reponse += tab[i].reponses[num_question-1] - '0';
+Cellule* recherche(Cellule* pbase, char* chaine) {
+  Cellule* ptemp = pbase;
+  while (ptemp != NULL) {
+    if (strcmp(ptemp->nom, chaine) == 0) {
+      return ptemp;
+    }
+    ptemp = ptemp->next;
   }
-
-  return compte_bonne_reponse;
+  return NULL;
 }
