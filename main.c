@@ -1,30 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include "header/main.h"
 
 int main(int argc, char* argv[]) {
-  FILE* fichier = fopen("donnees/data.bak", "r");
+  int pid = getpid();
+  int ppid = getppid();
 
-  if (fichier == NULL) {
-    perror("Impossible d'ouvrir le fichier.");
-    return 1;
+  printf("pid : %d\nppid : %d\n", pid, ppid);
+
+  int fpid = fork();
+  printf("%d\n", fpid);
+  printf("\n\n\n\n\n\n");
+
+  int i;
+  for (i = 0; i < 100; i++) {
+    printf("%d\n", i);
+    sleep(0.5);
   }
-
-  char* ligne = malloc(TAILLE);
-  printf("Debut du fichier :\n");
-  while (fgets(ligne, TAILLE, fichier) != NULL) {
-    printf("%s", ligne);
-  }
-  printf("Fin de fichier.\n");
-
-  if (fclose(fichier) != 0) {
-    perror("Impossible de fermer le fichier.");
-    return 1;
-  }
-
-  printf("Bien ferme !\n");
 
   return 0;
 }
