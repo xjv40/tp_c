@@ -189,16 +189,14 @@ int lecture_fichierb(const char* nom_fichier) {
     fread(ligne, sizeof(char), longueur_titre, fichier);
     printf("%s\n", ligne);
 
-    int i;
-    for (i = 0; i < 10; i++) {
+    // Attention, les caractères accentués prennent plus de place
+    // que les caractères ASCII, il faut le prendre en compte
+    // lorsque l'on définit les dimensions des données binaires
+    // à lire.
+    while(fread(ligne, sizeof(char), longueur_ligne, fichier) == longueur_ligne) {
+      printf("%s\n", ligne);
       // Vidage du tampon ligne
       memset(ligne, 0, TAILLE);
-      // Attention, les caractères accentués prennent plus de place
-      // que les caractères ASCII, il faut le prendre en compte
-      // lorsque l'on définit les dimensions des données binaires
-      // à lire.
-      fread(ligne, sizeof(char), longueur_ligne, fichier);
-      printf("%s\n", ligne);
     }
 
     if (fclose(fichier) != 0) {
