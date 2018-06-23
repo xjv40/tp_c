@@ -1,6 +1,6 @@
 #ifndef __MAIN_H
 #define __MAIN_H
 
-int lecture(void);
+#define TAILLE_TAMPON 256
 
 #endif  // __MAIN_H
